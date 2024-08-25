@@ -2,18 +2,20 @@ package com.csc;
 
 public class Converter {
 
-  // Convert ounces to pounds 
-  public String toPounds(int ounces) {
-    double pounds = ounces / 16.0;
-    String formattedPounds = String.format("%.4f", pounds);
-    return formattedPounds + (pounds == 1 ? " lb" : " lbs");
-  }
+    private static final double OUNCES_IN_POUND = 16.0;
 
-  // Convert ounces to pounds and ounces
-  public String toPoundsAndOunces(int ounces) {
-    int pounds = ounces / 16;
-    int remainingOunces = ounces % 16;
-    return (pounds == 1 ? "1 lb" : pounds + " lbs") + 
-           (remainingOunces == 1 ? " and 1 ounce" : (remainingOunces > 0 ? " and " + remainingOunces + " ounces" : ""));
-  }
+    // Converts ounces to pounds and formats the result
+    public String toPounds(int ounces) {
+        if (ounces < 0) return "Invalid input"; 
+        double pounds = ounces / OUNCES_IN_POUND;
+        return String.format("%.4f %s", pounds, pounds == 1 ? "lb" : "lbs");
+    }
+
+    // Converts ounces to pounds and ounces and formats the result
+    public String toPoundsAndOunces(int ounces) {
+        if (ounces < 0) return "Invalid input"; 
+        int pounds = ounces / 16;
+        int remainingOunces = ounces % 16;
+        return String.format("%d lb%s %d oz", pounds, pounds == 1 ? "" : "s", remainingOunces);
+    }
 }
